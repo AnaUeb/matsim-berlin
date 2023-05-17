@@ -28,9 +28,12 @@ public class ChangeSpeedWithinArea {
 
         //   3. apply changes
         for (Link link : network.getLinks().values()) {
+            // 3.0
+            if (link.getAllowedModes().contains("pt")) continue; // link with max speed <=30km
 
             // 3.1 don't change speed road links that are slower than new speed maximum anyway
-            if (link.getFreespeed() <= 8.33) continue;
+            if (link.getFreespeed() <= 8.33) continue; // link with max speed <=30km
+            if (link.getFreespeed() > 16.67) continue; // link with max speed >60kmh
             postSpeed += 1;
 
             // 3.2 don't change speed of links that are of the following road types
@@ -54,7 +57,7 @@ public class ChangeSpeedWithinArea {
             postSpatial += 1;
 
             // reduce speed for filtered links // does this also modify the original link or only the instance in for loop?
-            link.setFreespeed(8.33);
+            link.setFreespeed(98.33);
 
         }
 
