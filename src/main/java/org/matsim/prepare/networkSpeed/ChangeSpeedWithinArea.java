@@ -29,7 +29,9 @@ public class ChangeSpeedWithinArea {
         //   3. apply changes
         for (Link link : network.getLinks().values()) {
             // 3.0
-            if (link.getAllowedModes().contains("pt")) continue; // link with max speed <=30km
+            //if (link.getAllowedModes().contains("pt")) continue; // link with pt
+            if (link.getAllowedModes().contains("car")) {}
+            else continue; // only link with cars
 
             // 3.1 don't change speed road links that are slower than new speed maximum anyway
             if (link.getFreespeed() <= 8.33) continue; // link with max speed <=30km
@@ -57,7 +59,7 @@ public class ChangeSpeedWithinArea {
             postSpatial += 1;
 
             // reduce speed for filtered links // does this also modify the original link or only the instance in for loop?
-            link.setFreespeed(98.33);
+            link.setFreespeed(8.33);
 
         }
 
@@ -70,7 +72,7 @@ public class ChangeSpeedWithinArea {
         );
 
         //3. Write the network into file
-        NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/test-network-wi-area.xml.gz");
+        NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/test-network-wi-area2.xml.gz");
     }
 
 
