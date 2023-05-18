@@ -67,13 +67,13 @@ public class ChangeSpeedWithinArea {
         System.out.println(
                 "Number of Links in network:                         " + network.getLinks().values().size() +
                 "\nNumber of Links where car is allowed:               " + postMode +
-                "\nNumber of Links after removing links<=30kmh, >60kmh:  " + postSpeed +
-                "\nNumber of Links after removing types to not change:   " + postTypes +
-                "\nNumber of Links after spatial filter:                  " + postSpatial
+                "\nNumber of Links after removing links<=30kmh, >60kmh: " + postSpeed +
+                "\nNumber of Links after removing types to not change:  " + postTypes +
+                "\nNumber of Links after spatial filter:                 " + postSpatial
         );
 
         //3. Write the network into file
-        NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/test-network-wi-area2.xml.gz");
+        NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/test-network-wi-area.xml.gz");
     }
 
 
