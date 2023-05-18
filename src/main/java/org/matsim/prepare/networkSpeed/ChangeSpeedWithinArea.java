@@ -14,6 +14,7 @@ public class ChangeSpeedWithinArea {
 
     public static void main(String[] args) {
         // keep track on which step filters out how many links
+        int postMode = 0;
         int postSpeed = 0;
         int postTypes = 0;
         int postSpatial = 0;
@@ -28,17 +29,16 @@ public class ChangeSpeedWithinArea {
 
         //   3. apply changes
         for (Link link : network.getLinks().values()) {
-            // 3.0
-            //if (link.getAllowedModes().contains("pt")) continue; // link with pt
-            if (link.getAllowedModes().contains("car")) {}
-            else continue; // only link with cars
+            // 3.1 don't change links where cars are not allowed anyway
+            if (!link.getAllowedModes().contains("car")) continue; // only link with cars
+            postMode += 1;
 
-            // 3.1 don't change speed road links that are slower than new speed maximum anyway
-            if (link.getFreespeed() <= 8.33) continue; // link with max speed <=30km
-            if (link.getFreespeed() > 16.67) continue; // link with max speed >60kmh
+            // 3.2 don't change speed road links that are slower than new speed maximum anyway
+            if (link.getFreespeed() <= 30.001/3.6*0.5) continue; // link with max speed <=30km
+            if (link.getFreespeed() > 60.001/3.6*0.5) continue; // link with max speed >60kmh
             postSpeed += 1;
 
-            // 3.2 don't change speed of links that are of the following road types
+            // 3.3 don't change speed of links that are of the following road types
             String linkType = (String) link.getAttributes().getAsMap().get("type");
             if ("primary".equals(linkType)) continue;
             if ("motorway".equals(linkType)) continue;
@@ -47,7 +47,7 @@ public class ChangeSpeedWithinArea {
             if ("motorway_link".equals(linkType)) continue;
             postTypes += 1;
 
-            // 3.3 check whether either the fromNode or the toNode lie within area where changes should be applied
+            // 3.4 check whether either the fromNode or the toNode lie within area where changes should be applied
             Coord cordStart = link.getFromNode().getCoord();
             Coord cordEnd = link.getToNode().getCoord();
             Coordinate coordinateStart = new Coordinate( cordStart.getX(), cordStart.getY() );
@@ -59,16 +59,17 @@ public class ChangeSpeedWithinArea {
             postSpatial += 1;
 
             // reduce speed for filtered links // does this also modify the original link or only the instance in for loop?
-            link.setFreespeed(8.33);
+            link.setFreespeed(30/3.6*0.5);
 
         }
 
 
         System.out.println(
                 "Number of Links in network:                         " + network.getLinks().values().size() +
-                "\nNumber of Links after removing links<=30kmh:         " + postSpeed +
-                "\nNumber of Links after removing types to not change:  " + postTypes +
-                "\nNumber of Links after spatial filter:                 " + postSpatial
+                "\nNumber of Links where car is allowed:               " + postMode +
+                "\nNumber of Links after removing links<=30kmh, >60kmh:  " + postSpeed +
+                "\nNumber of Links after removing types to not change:   " + postTypes +
+                "\nNumber of Links after spatial filter:                  " + postSpatial
         );
 
         //3. Write the network into file
