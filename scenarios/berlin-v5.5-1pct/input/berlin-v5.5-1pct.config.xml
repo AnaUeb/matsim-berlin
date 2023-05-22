@@ -18,7 +18,7 @@
 		<param name="numberOfThreads" value="8" />
 	</module>
 	<module name="network" >
-		<param name="inputNetworkFile" value="./test-network.xml.gz" />
+		<param name="inputNetworkFile" value="./network-wi-area.xml.gz" />
 		<!--<param name="inputNetworkFile" value="https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz" />
 		-->
 	</module>

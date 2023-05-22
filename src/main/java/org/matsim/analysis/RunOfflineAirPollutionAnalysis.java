@@ -56,11 +56,13 @@ public class RunOfflineAirPollutionAnalysis {
 	public static void main(String[] args) {
 				
 		if (args.length == 1) {
-			String rootDirectory = args[0];
+			//String rootDirectory = args[0];
+			String rootDirectory = "C:/Users/anaue/Documents/TUBerlin/MatSim/matsim-berlin";
 			if (!rootDirectory.endsWith("/")) rootDirectory = rootDirectory + "/";
-			
-			final String runDirectory = "public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.4-10pct/output-berlin-v5.4-10pct/";	
-			final String runId = "berlin-v5.4-10pct";
+
+			//final String runDirectory = "public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.4-10pct/output-berlin-v5.4-10pct/";
+			final String runDirectory = "scenarios/berlin-v5.5-1pct/output_base_1pct/";
+			final String runId = "berlin-v5.5-1pct";
 
 			final String hbefaFileCold = "shared-svn/projects/matsim-germany/hbefa/hbefa-files/v3.2/EFA_ColdStart_vehcat_2005average.txt";
 			final String hbefaFileWarm = "shared-svn/projects/matsim-germany/hbefa/hbefa-files/v3.2/EFA_HOT_vehcat_2005average.txt";

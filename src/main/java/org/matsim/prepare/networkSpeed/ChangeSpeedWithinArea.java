@@ -73,7 +73,7 @@ public class ChangeSpeedWithinArea {
         );
 
         //3. Write the network into file
-        NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/test-network-wi-area.xml.gz");
+        NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/network-wi-area.xml.gz");
     }
 
 
