@@ -1,5 +1,6 @@
 package org.matsim.prepare.networkSpeed;
 
+import com.opencsv.CSVWriter;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.MultiPolygon;
@@ -9,15 +10,23 @@ import org.matsim.api.core.v01.network.Link;
 import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.utils.gis.ShapeFileReader;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ChangeSpeedWithinArea {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // keep track on which step filters out how many links
         int postMode = 0;
         int postSpeed = 0;
         int postTypes = 0;
         int postSpatial = 0;
+        List<String> affectedLinks = new ArrayList<>();
+        FileWriter writer = new FileWriter("./scenarios/berlin-v5.5-1pct/input/affectedLinks.csv");
+
 
         // 1. read the network file
         var network = NetworkUtils.readNetwork("https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/berlin/berlin-v5.5-10pct/input/berlin-v5.5-network.xml.gz");
@@ -60,8 +69,12 @@ public class ChangeSpeedWithinArea {
 
             // reduce speed for filtered links // does this also modify the original link or only the instance in for loop?
             link.setFreespeed(30/3.6*0.5);
+            affectedLinks.add(link.getId().toString());
+
 
         }
+
+
 
 
         System.out.println(
@@ -69,11 +82,20 @@ public class ChangeSpeedWithinArea {
                 "\nNumber of Links where car is allowed:               " + postMode +
                 "\nNumber of Links after removing links<=30kmh, >60kmh: " + postSpeed +
                 "\nNumber of Links after removing types to not change:  " + postTypes +
-                "\nNumber of Links after spatial filter:                 " + postSpatial
+                "\nNumber of Links after spatial filter:                 " + postSpatial +
+                        "\nSize of array:                                " + affectedLinks.size()
         );
 
         //3. Write the network into file
         NetworkUtils.writeNetwork(network, "./scenarios/berlin-v5.5-1pct/input/network-wi-area.xml.gz");
+        // exportFIle
+
+        for (int j = 0; j < affectedLinks.size(); j++) {
+            writer.append(String.valueOf(affectedLinks.get(j)));
+            writer.append("\n");
+        }
+        writer.close();
+
     }
 
 
