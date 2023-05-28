@@ -41,25 +41,10 @@ public class RunPersonTripAnalysis {
 
 	public static void main(String[] args) {
 		
-//		String outputDirectory = "../runs-svn/avoev/snz-gladbeck/output-snzDrtO443g/";
-//		String runId = "snzDrtO443g";
-		
-		//String outputDirectory = "scenarios/berlin-v5.5-1pct/output_base_1pct/";
+//String outputDirectory = "scenarios/berlin-v5.5-1pct/output_base_1pct/";
 		String outputDirectory = "scenarios/berlin-v5.5-1pct/output_scenario1_1pct/";
 		String runId = "berlin-v5.5-1pct";
-		
-//		String outputDirectory = "../runs-svn/avoev/snz-gladbeck/output-snzDrtO442g/";
-//		String runId = "snzDrtO442g";
-		
-//		String outputDirectory = "../runs-svn/avoev/snz-gladbeck/output-snzDrtO442l/";
-//		String runId = "snzDrtO442l";
-		
-//		String outputDirectory = "../runs-svn/avoev/snz-vulkaneifel/output-snzDrtO320g/";
-//		String runId = "snzDrtO320g";
-		
-//		String outputDirectory = "../runs-svn/avoev/snz-vulkaneifel/output-snzDrtO321g/";
-//		String runId = "snzDrtO321g";
-		
+
 //		String shapeFileTripFilter = "../shared-svn/projects/avoev/matsim-input-files/vulkaneifel/v0/vulkaneifel.shp";
 		String shapeFileTripFilter = "scenarios/shape/bezirksgrenzen.shp";
 		String crs = "EPSG:4326";
